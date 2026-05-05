@@ -12,6 +12,7 @@ type Config struct {
 	DatabaseName   string
 	JwtSecret      string
 	UserCollection string
+	DormCollection string
 }
 
 func Load() (Config, error) {
@@ -23,6 +24,7 @@ func Load() (Config, error) {
 		DatabaseName:   getEnv("DATABASE_NAME", "uni_parcel"),
 		JwtSecret:      getEnv("JWT_SECRET", "your_jwt_secret"),
 		UserCollection: getEnv("USER_COLLECTION", "users"),
+		DormCollection: getEnv("DORM_COLLECTION", "dorms"),
 	}
 	return cfg, nil
 }

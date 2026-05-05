@@ -7,12 +7,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-type registerRequest struct {
-	Name     string `json:"name"`
-	Email    string `json:"email"`
-	Password string `json:"password"`
-}
-
 type AuthHandler struct {
 	authService *application.AuthService
 }
@@ -22,6 +16,12 @@ type UserResponse struct {
 	Name  string             `json:"name"`
 	Email string             `json:"email"`
 	Role  string             `json:"role"`
+}
+
+type registerRequest struct {
+	Name     string `json:"name"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
 }
 
 type authResponse struct {
