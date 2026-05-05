@@ -4,22 +4,29 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/tipananchakr/uni-parcel/internals/application"
 	"github.com/tipananchakr/uni-parcel/internals/core/domain"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type registerRequest struct {
 	Name     string `json:"name"`
 	Email    string `json:"email"`
 	Password string `json:"password"`
-	Role     string `json:"role"`
 }
 
 type AuthHandler struct {
 	authService *application.AuthService
 }
 
+type UserResponse struct {
+	ID    primitive.ObjectID `json:"id"`
+	Name  string             `json:"name"`
+	Email string             `json:"email"`
+	Role  string             `json:"role"`
+}
+
 type authResponse struct {
-	User  domain.User `json:"user"`
-	Token string      `json:"token"`
+	User  UserResponse `json:"user"`
+	Token string       `json:"token"`
 }
 
 type loginRequest struct {
@@ -47,7 +54,7 @@ func (a *AuthHandler) Register(c *fiber.Ctx) error {
 		Name:     req.Name,
 		Email:    req.Email,
 		Password: req.Password,
-		Role:     req.Role,
+		Role:     domain.RoleUser,
 	})
 
 	if err != nil {
@@ -55,7 +62,12 @@ func (a *AuthHandler) Register(c *fiber.Ctx) error {
 	}
 
 	return c.Status(fiber.StatusCreated).JSON(authResponse{
-		User:  result.User,
+		User: UserResponse{
+			ID:    result.User.ID,
+			Name:  result.User.Name,
+			Email: result.User.Email,
+			Role:  string(result.User.Role),
+		},
 		Token: result.Token,
 	})
 }
@@ -73,7 +85,12 @@ func (a *AuthHandler) Login(c *fiber.Ctx) error {
 	}
 
 	return c.Status(fiber.StatusOK).JSON(authResponse{
-		User:  result.User,
+		User: UserResponse{
+			ID:    result.User.ID,
+			Name:  result.User.Name,
+			Email: result.User.Email,
+			Role:  string(result.User.Role),
+		},
 		Token: result.Token,
 	})
 }

@@ -2,9 +2,11 @@ package domain
 
 import "go.mongodb.org/mongo-driver/bson/primitive"
 
+type UserRole string
+
 const (
-	RoleAdmin = "admin"
-	RoleUser  = "user"
+	RoleAdmin UserRole = "admin"
+	RoleUser  UserRole = "user"
 )
 
 type User struct {
@@ -12,5 +14,5 @@ type User struct {
 	Name     string             `bson:"name" json:"name"`
 	Email    string             `bson:"email" json:"email"`
 	Password string             `bson:"password" json:"-"`
-	Role     string             `bson:"role" json:"role"`
+	Role     UserRole           `bson:"role" json:"role"`
 }
