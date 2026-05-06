@@ -43,14 +43,19 @@ func main() {
 	dormRepository := mongorepo.NewDormRepository(database.Collection(cfg.DormCollection))
 	dormService := application.NewDormService(ctx, dormRepository)
 
+	// Major
+	majorRepository := mongorepo.NewMajorRepository(database.Collection(cfg.MajorCollection))
+	majorService := application.NewMajorService(majorRepository)
+
 	// Initialize Fiber app and register routes
 	app := fiber.New()
 	app.Use(logger.New())
 	app.Use(cors.New())
 
 	http.RegisterRoutes(app, http.Services{
-		Auth: authService,
-		Dorm: dormService,
+		Auth:  authService,
+		Dorm:  dormService,
+		Major: majorService,
 	})
 
 	log.Fatal(app.Listen("0.0.0.0:" + cfg.Port))

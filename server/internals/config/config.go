@@ -7,24 +7,26 @@ import (
 )
 
 type Config struct {
-	Port           string
-	MongoURI       string
-	DatabaseName   string
-	JwtSecret      string
-	UserCollection string
-	DormCollection string
+	Port            string
+	MongoURI        string
+	DatabaseName    string
+	JwtSecret       string
+	UserCollection  string
+	DormCollection  string
+	MajorCollection string
 }
 
 func Load() (Config, error) {
 	godotenv.Load(".env")
 
 	cfg := Config{
-		Port:           getEnv("PORT", "3000"),
-		MongoURI:       getEnv("MONGODB_URI", "mongodb://localhost:27017"),
-		DatabaseName:   getEnv("DATABASE_NAME", "uni_parcel"),
-		JwtSecret:      getEnv("JWT_SECRET", "your_jwt_secret"),
-		UserCollection: getEnv("USER_COLLECTION", "users"),
-		DormCollection: getEnv("DORM_COLLECTION", "dorms"),
+		Port:            getEnv("PORT", "3000"),
+		MongoURI:        getEnv("MONGODB_URI", "mongodb://localhost:27017"),
+		DatabaseName:    getEnv("DATABASE_NAME", "uni_parcel"),
+		JwtSecret:       getEnv("JWT_SECRET", "your_jwt_secret"),
+		UserCollection:  getEnv("USER_COLLECTION", "users"),
+		DormCollection:  getEnv("DORM_COLLECTION", "dorms"),
+		MajorCollection: getEnv("MAJOR_COLLECTION", "majors"),
 	}
 	return cfg, nil
 }

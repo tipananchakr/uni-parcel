@@ -6,12 +6,14 @@ import (
 )
 
 type Services struct {
-	Auth *application.AuthService
-	Dorm *application.DormService
+	Auth  *application.AuthService
+	Dorm  *application.DormService
+	Major *application.MajorService
 }
 
 func RegisterRoutes(app *fiber.App, services Services) {
 	api := app.Group("/api")
 	RegisterAuthRoutes(api.Group("/auth"), services.Auth)
 	RegisDormRoute(api.Group("/dorms"), services.Dorm, services.Auth)
+	RegisterMajorRoutes(api.Group("/majors"), services.Major, services.Auth)
 }

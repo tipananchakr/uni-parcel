@@ -10,6 +10,6 @@ type Dorm struct {
 }
 
 type DormUpdate struct {
-	Code *string
-	Name *string
+	Code *string `json:"code"`
+	Name *string `json:"name"`
 }

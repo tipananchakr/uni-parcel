@@ -16,11 +16,6 @@ type dormRequest struct {
 	Name string `json:"name"`
 }
 
-type updateDormRequest struct {
-	Code *string `json:"code"`
-	Name *string `json:"name"`
-}
-
 type dormResponse struct {
 	ID   string `json:"id"`
 	Code string `json:"code"`
@@ -99,7 +94,7 @@ func (d *DormHandler) Create(c *fiber.Ctx) error {
 func (d *DormHandler) Update(c *fiber.Ctx) error {
 	id := c.Params("id")
 
-	var req updateDormRequest
+	var req domain.DormUpdate
 	if err := c.BodyParser(&req); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid request"})
 	}
